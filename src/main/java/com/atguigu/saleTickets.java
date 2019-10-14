@@ -52,7 +52,7 @@ class Tickets {  //资源类
 }
 
 
-public class   saleTickets {
+public class  saleTickets {
     public static void main(String[] args) throws Exception {
         /*
         匿名内部类的方式实现：线程操作资源类的操作

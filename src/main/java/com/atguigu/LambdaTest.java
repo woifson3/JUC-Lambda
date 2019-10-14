@@ -27,7 +27,7 @@ interface Foo {
 
 public class LambdaTest {
     public static void main(String[] args) {
-        //lambda表达式的例子
+        //lambda表达式的例子.没有涉及到多线程。演变过程看CSDN
         Foo f = (int x, int y) -> {
             System.out.println("lambda表达式有参");
             return x + y;
