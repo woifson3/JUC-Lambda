@@ -1,6 +1,7 @@
 package com.atguigu;
 
 import java.util.*;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -25,8 +26,6 @@ public class NoSafeDemo {
 //        List list=new ArrayList();这是线程不安全的，下面两种才是线程安全的模式
         //List list=new Vector();
         List list = Collections.synchronizedList(new ArrayList<>());
-
-
         for (int i = 0; i < 30; i++) {
             new Thread(() -> {
                 list.add(UUID.randomUUID().toString().substring(0, 6));

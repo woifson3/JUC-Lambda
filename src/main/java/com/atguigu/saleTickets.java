@@ -1,5 +1,7 @@
 package com.atguigu;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -9,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>
  * 口诀：高内聚低耦合的情况下，线程     操作      资源类
  * 高内聚：把对资源类的全部操作，以方法的形式封装进资源类（面向对象的编程思想）（空调出厂自带制冷，加热功能）,对外暴露接口，供线程调用
- *
+ * <p>
  * 只要涉及到多线程就肯定有资源类
  * <p>
  * 并发：多个线程争抢同一个资源   （争抢手机玩。抢火车票）
@@ -52,7 +54,7 @@ class Tickets {  //资源类
 }
 
 
-public class  saleTickets {
+public class saleTickets {
     public static void main(String[] args) throws Exception {
         /*
         匿名内部类的方式实现：线程操作资源类的操作
@@ -67,16 +69,26 @@ public class  saleTickets {
                 }
             }, "A").start();*/
 
+        ExecutorService executorService = Executors.newFixedThreadPool(3);//线程池版本
+        Tickets t = new Tickets();
+
+            for (int i = 0; i < 30; i++) {
+                executorService.execute(() -> {
+                    t.sale();
+                });
+            }
+            executorService.shutdown();
+
 
         //lambda表达式方式实现：线程操作资源类的操作
         //lambda表达式优化匿名内部类
-        Tickets t = new Tickets();
+        /*Tickets t = new Tickets();
         new Thread(() -> {
             for (int i = 1; i <= 40; i++) t.sale();
         }, "A").start();
         new Thread(() -> {
             for (int i = 1; i <= 40; i++) t.sale();
         }, "B").start();
-
+*/
     }
 }
